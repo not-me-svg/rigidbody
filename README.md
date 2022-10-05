@@ -1,1 +1,1 @@
-# Rigidbody personal protfolio
+# Rigidbody personal portfolio
