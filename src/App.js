@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter } from "react-router-dom";
+import { AppRouter } from "./router/AppRouter";
+import styled from "styled-components";
+import { HeaderComponent } from "./components/HeaderComponent";
+
+const PageContent = styled('div')(() => ({
+  marginRight: "auto",
+  marginLeft: "auto",
+  backgroundColor: "#0a0a0a",
+  color: "#c7c7c7"
+}));
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <PageContent className="App" id="top">
+      <HeaderComponent></HeaderComponent>
+
+      <BrowserRouter>
+        <AppRouter ></AppRouter>
+      </BrowserRouter>
+    </PageContent>
   );
 }
 
