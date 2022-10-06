@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const Hero = styled('div')(() => ({
   position: "relative",
@@ -32,35 +32,45 @@ const IntroText = styled('div')(() => ({
   }
 }));
 
-const TextRotator = styled('div')(() => ({
-  position: "absolute",
-  left: "0%",
-  top: "auto",
-  right:" 0%",
-  bottom: "150px",
-  display: "flex",
-  overflow: "hidden",
-  alignItems: "center",
-  fontFamily: "Clash Grotesk, sans-serif",
-
-  '& .text-rotator-content': {
-    display: "flex",
-    alignItems: "center",
-    transformStyle: "preserve-3d",
-    willChange: "transform"
-  },
-  
-  '& h3': {
-    marginTop: "0px",
-    marginBottom: "0px",
-    fontSize: "10vw",
-    lineHeight: "1.1",
-    fontWeight: "500",
-    letterSpacing: "5px",
-    textTransform: "uppercase",
-    whiteSpace: "nowrap",
+const displaceAnimation = keyframes`
+  0% {
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
   }
-}));
+  100% {
+    transform: translate3d(-100%, 0, 0) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+`;
+
+const TextRotator = styled.div`
+  position: absolute;
+  left: 0%;
+  top: auto;
+  right: 0%;
+  bottom: 150px;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  font-family: Clash Grotesk, sans-serif;
+
+  & .text-rotator-content {
+    display: flex;
+    align-items: center;
+    animation: ${ displaceAnimation } 16s linear infinite;
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  
+  & h3 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 10vw;
+    line-height: 1.1;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+`;
 
 const StartIcon = styled('div')(() => ({
   width: "60px",
@@ -165,7 +175,6 @@ const Contact = styled('div')(() => ({
   },
 
   '& .contact-links-email': {
-    marginLeft: 0,
     position: "relative",
     zIndex: 2,
     display: "flex",
@@ -222,7 +231,7 @@ export const HomePage = () => {
         </IntroText>
 
         <TextRotator>
-          <div className="text-rotator-content" style={{ transform: `translate3d(${0}%, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)` }}>
+          <div className="text-rotator-content">
             <h3>Rigid&nbsp;Body</h3>
             <StartIcon />
             <h3>digital creator & A/V artist</h3>
@@ -230,7 +239,7 @@ export const HomePage = () => {
           </div>
 
           <div className="text-rotator-content">
-            <h3>Rigid&nbspBody</h3>
+            <h3>Rigid&nbsp;Body</h3>
             <StartIcon />
             <h3>digital creator & A/V artist</h3>
             <StartIcon />
@@ -260,11 +269,11 @@ export const HomePage = () => {
 
             <div className="contact-links-social-grid">
               <a href="https://www.instagram.com/rigidbody_/" target="_blank">
-                <i class="fa-brands fa-instagram"></i>
+                <i className="fa-brands fa-instagram"></i>
               </a>
 
               <a href="">
-                <i class="fa-brands fa-linkedin-in"></i>
+                <i className="fa-brands fa-linkedin-in"></i>
               </a>
             </div>
           </div>
