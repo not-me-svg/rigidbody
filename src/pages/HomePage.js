@@ -1,5 +1,5 @@
 import React from 'react'
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const Hero = styled('div')(() => ({
   position: "relative",
@@ -247,7 +247,7 @@ export const HomePage = () => {
         </TextRotator>
 
         <ScrollDownWrapper>
-          <a href="#" className="mouse-scroll"></a>
+          <a href="#" className="mouse-scroll">.</a>
         </ScrollDownWrapper>
       </Hero>
 
@@ -272,7 +272,7 @@ export const HomePage = () => {
                 <i className="fa-brands fa-instagram"></i>
               </a>
 
-              <a href="">
+              <a href="#">
                 <i className="fa-brands fa-linkedin-in"></i>
               </a>
             </div>

@@ -2,6 +2,7 @@ import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./router/AppRouter";
 import styled from "styled-components";
 import { HeaderComponent } from "./components/HeaderComponent";
+import { ScrollTopComponent } from "./components/ScrollTopComponent";
 
 const PageContent = styled('div')(() => ({
   marginRight: "auto",
@@ -18,6 +19,8 @@ function App() {
       <BrowserRouter>
         <AppRouter ></AppRouter>
       </BrowserRouter>
+
+      <ScrollTopComponent />
     </PageContent>
   );
 }
