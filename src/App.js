@@ -3,24 +3,27 @@ import { AppRouter } from "./router/AppRouter";
 import styled from "styled-components";
 import { HeaderComponent } from "./components/HeaderComponent";
 import { ScrollTopComponent } from "./components/ScrollTopComponent";
+import { ContactComponent } from "./components/ContactComponent";
 
 const PageContent = styled('div')(() => ({
   marginRight: "auto",
   marginLeft: "auto",
-  backgroundColor: "#0a0a0a",
+  backgroundColor: "#2b0297",
   color: "#c7c7c7"
 }));
 
 function App() {
   return (
     <PageContent className="App" id="top">
-      <HeaderComponent></HeaderComponent>
+      <HeaderComponent />
 
       <BrowserRouter>
-        <AppRouter ></AppRouter>
+        <AppRouter />
       </BrowserRouter>
 
       <ScrollTopComponent />
+
+      <ContactComponent />
     </PageContent>
   );
 }

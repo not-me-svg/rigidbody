@@ -1,5 +1,42 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+// Animations
+const glitch = keyframes`
+  2%, 64% {
+    transform: translate(0, 0) skew(0deg);
+  }
+  4%, 60% {
+    transform: translate(0, 0) skew(0deg);
+  }
+  62% {
+    transform: translate(0, 0) skew(5deg); 
+  }
+`;
+
+const glitchTop = keyframes`
+  2%, 64% {
+    transform: translate(2px, -2px);
+  }
+  4%, 60% {
+    transform: translate(-2px, 2px);
+  }
+  62% {
+    transform: translate(13px, -1px) skew(-13deg); 
+  }
+`;
+
+const glitchBotom = keyframes`
+  2%, 64% {
+    transform: translate(-2px, 0);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0);
+  }
+  62% {
+    transform: translate(-22px, 5px) skew(21deg); 
+  }
+`;
 
 const StickyNav = styled('div')(() => ({
   position: "fixed",
@@ -25,17 +62,31 @@ const NavGrid = styled('div')(() => ({
   gridTemplateRows: "auto",
 }));
 
-const LogoLink = styled('a')(() => ({
-  display: "flex",
-  flexDirection: "row",
-  justifyContent: "flex-start",
-  alignItems: "flex-start",
-  color: "#c7c7c7",
-  fontSize: "20px",
-  lineHeight: "24px",
-  fontWeight: "400",
-  textDecoration: "none",
-}));
+const LogoLink = styled.a`
+  color: #c7c7c7;
+  font-size: 24px;
+  line-height: 24px;
+  font-weight: 400;
+  text-decoration: none;
+  animation: ${ glitch } 1s linear infinite;
+
+  &:before,
+  &:after {
+    content: attr(title);
+    position: absolute;
+    left: 0;
+  }
+
+  &:before{
+    animation: ${ glitchTop } 1s linear infinite;
+    clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  }
+
+  &:after{
+    animation: ${ glitchBotom } 1.5s linear infinite;
+    clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  }
+`;
 
 const NavLeft = styled('div')(() => ({
   display: "flex",
@@ -62,12 +113,12 @@ export const HeaderComponent = () => {
   return (
     <StickyNav>
       <NavGrid>
-        <LogoLink href="">rigid.body</LogoLink>
+        <LogoLink href="/" title="rigid.body">rigid.body</LogoLink>
 
         <NavLeft>
-          <NavLink href="">About</NavLink>
-          <NavLink href="">Work</NavLink>
-          <NavLink href="">Contact</NavLink>
+          <NavLink href="about">About</NavLink>
+          <NavLink href="work">Work</NavLink>
+          <NavLink href="#contact">Contact</NavLink>
         </NavLeft>
       </NavGrid>
     </StickyNav>

@@ -46,7 +46,7 @@ export const ScrollTopComponent = () => {
   return (
     <>
       <ScrollTopBtn href="#Top" showBtn={ showBtn }>
-        <i class="fa-solid fa-chevron-up"></i>
+        <i className="fa-solid fa-chevron-up"></i>
       </ScrollTopBtn>
     </>
   )
