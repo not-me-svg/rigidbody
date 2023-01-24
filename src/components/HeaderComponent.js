@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import useViewport from '../hooks/useViewport';
 
 // Animations
 const glitch = keyframes`
@@ -110,16 +111,23 @@ const NavLink = styled('a')(() => ({
 }));
 
 export const HeaderComponent = () => {
+  const { width } = useViewport();
+  const breakpoint = 680;
+
   return (
     <StickyNav>
       <NavGrid>
         <LogoLink href="/" title="rigid.body">rigid.body</LogoLink>
 
-        <NavLeft>
-          <NavLink href="about">About</NavLink>
-          <NavLink href="work">Work</NavLink>
-          <NavLink href="#contact">Contact</NavLink>
-        </NavLeft>
+        { 
+          width > breakpoint &&
+          <NavLeft>
+            <NavLink href="about">About</NavLink>
+            <NavLink href="work">Work</NavLink>
+            <NavLink href="#contact">Contact</NavLink>
+          </NavLeft>
+        }
+        
       </NavGrid>
     </StickyNav>
   )

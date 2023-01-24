@@ -1,3 +1,4 @@
+import { Canvas } from '@react-three/fiber';
 import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./router/AppRouter";
 import styled from "styled-components";
@@ -15,6 +16,9 @@ const PageContent = styled('div')(() => ({
 function App() {
   return (
     <PageContent className="App" id="top">
+
+      <Canvas />
+
       <HeaderComponent />
 
       <BrowserRouter>
