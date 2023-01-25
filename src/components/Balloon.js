@@ -1,10 +1,11 @@
-import React, { useRef } from 'react'
-import { useCubeTexture, useGLTF } from '@react-three/drei'
-import { useControls } from 'leva'
+import React, { useRef } from 'react';
+import { useGLTF } from '@react-three/drei';
+import { useControls } from 'leva';
+import { useFrame, useThree } from '@react-three/fiber';
 
 export default function Balloon({ ...props }) {
-  const group = useRef()
-  const { nodes } = useGLTF('/scene.gltf')
+  const ref = useRef();
+  const { nodes } = useGLTF('/scene.gltf');
   const materialProps = useControls({
     thickness: { value: 5, min: 0, max: 20 },
     roughness: { value: 0, min: 0, max: 1, step: 0.1 },
@@ -16,11 +17,20 @@ export default function Balloon({ ...props }) {
     color: '#2b0297',
     attenuationTint: '#2b0297',
     attenuationDistance: { value: 1, min: 0, max: 1 }
+  });
+
+  // Mouse behaviour
+  const { viewport } = useThree()
+  useFrame(({clock}) => {
+    const et = clock.getElapsedTime();
+    let mult = 0.1;
+    
+    ref.current.position.set(Math.cos( et ) * mult, Math.cos( et ) * mult, Math.cos( et ) * mult);
+    ref.current.rotation.set(-Math.cos( et ) * mult, -Math.cos( et ) * mult, -Math.cos( et ) * mult);
   })
 
-
   return (
-    <group ref={group} {...props} dispose={null}>
+    <group ref={ref} {...props} dispose={null}>
       <group rotation={[-Math.PI / 2, 0, 0]}>
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[0,0,0]} rotation={[-Math.PI / 2, 0.3, 10]} scale={[0.1, 0.1, 0.1]}>
