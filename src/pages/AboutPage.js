@@ -167,7 +167,7 @@ export const AboutPage = () => {
           
           <div className="service">
             <div className="service-icon">
-            <i class="fa-regular fa-object-ungroup" style={{ fontSize: "40px" }}></i>
+            <i className="fa-regular fa-object-ungroup" style={{ fontSize: "40px" }}></i>
             </div>
             
             <div>

@@ -1,8 +1,12 @@
-import { Canvas } from '@react-three/fiber';
-import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./router/AppRouter";
+import { BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
+import { Canvas } from '@react-three/fiber';
+import { Suspense } from 'react';
+import { Environment, OrbitControls } from '@react-three/drei';
+import { useControls } from 'leva'
 import { HeaderComponent } from "./components/HeaderComponent";
+import Balloon from './components/Scene';
 import { ScrollTopComponent } from "./components/ScrollTopComponent";
 import { ContactComponent } from "./components/ContactComponent";
 
@@ -14,10 +18,29 @@ const PageContent = styled('div')(() => ({
 }));
 
 function App() {
+  const envProps = useControls({ background: false })
+
   return (
     <PageContent className="App" id="top">
 
-      <Canvas />
+      <Canvas
+         dpr={[1, 2]} camera={{ position: [0, 0, 2.5] }} gl={{ alpha: false }}
+         style={{
+            backgroundColor: '#2b0297',
+            width: '100vw',
+            height: '100vh',
+         }}
+      >
+         <color attach="background" args={['#2b0297']} />
+         {/* <ambientLight intensity={1.25} />
+         <ambientLight intensity={0.1} />
+         <directionalLight intensity={0.4} /> */}
+         <Suspense fallback={null}>
+          <Balloon />
+          <Environment {...envProps} files="environment.hdr" />
+         </Suspense>
+         <OrbitControls />
+      </Canvas>
 
       <HeaderComponent />
 
