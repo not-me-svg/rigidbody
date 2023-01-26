@@ -9,6 +9,16 @@ import Balloon from './components/Balloon';
 import { ScrollTopComponent } from "./components/ScrollTopComponent";
 import { ContactComponent } from "./components/ContactComponent";
 
+const Frame = styled('div')(() => ({
+  border: "1px solid #c7c7c7",
+  borderRadius: "4px",
+  position: "fixed",
+  top: "24px",
+  right: "24px",
+  bottom: "24px",
+  left: "24px",
+}));
+
 const PageContent = styled('div')(() => ({
   marginRight: "auto",
   marginLeft: "auto",
@@ -20,6 +30,8 @@ function App() {
 
   return (
     <PageContent className="App" id="top">
+
+      <Frame />
 
       <Canvas
          dpr={[1, 2]} camera={{ position: [0, 0, 2.5] }} gl={{ alpha: true }}

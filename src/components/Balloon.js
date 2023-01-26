@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useGLTF, useTexture } from '@react-three/drei';
-import { useFrame, useThree } from '@react-three/fiber';
+import { useFrame } from '@react-three/fiber';
 
 export default function Balloon({ ...props }) {
   const ref = useRef();
@@ -8,7 +8,6 @@ export default function Balloon({ ...props }) {
   const texture = useTexture('/texture.png');
 
   // Mouse behaviour
-  const { viewport } = useThree()
   useFrame(({clock}) => {
     const et = clock.getElapsedTime();
     let mult = 0.1;
