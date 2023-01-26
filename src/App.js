@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { Environment, OrbitControls } from '@react-three/drei';
-import { useControls } from 'leva'
 import { HeaderComponent } from "./components/HeaderComponent";
 import Balloon from './components/Balloon';
 import { ScrollTopComponent } from "./components/ScrollTopComponent";
@@ -18,7 +17,6 @@ const PageContent = styled('div')(() => ({
 }));
 
 function App() {
-  const envProps = useControls({ background: false })
 
   return (
     <PageContent className="App" id="top">
@@ -33,15 +31,11 @@ function App() {
             zIndex: 1
          }}
       >
-         
-         {/* <ambientLight intensity={1.25} />
-         <ambientLight intensity={0.1} />
-         <directionalLight intensity={0.4} /> */}
-         <Suspense fallback={null}>
+        <Suspense fallback={null}>
           <Balloon />
-          <Environment {...envProps} files="environment.hdr" />
-         </Suspense>
-         <OrbitControls enableZoom={false} enableRotate={false}/>
+          <Environment background={false} files="environment.hdr" />
+        </Suspense>
+        <OrbitControls enableZoom={false} enableRotate={false}/>
       </Canvas>
 
       <HeaderComponent />
