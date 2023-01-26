@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styled from 'styled-components';
 import { SectionTitleComponent } from '../components/SectionTitleComponent';
 import { TextRotatorComponent } from '../components/TextRotatorComponent';
 import useViewport from '../hooks/useViewport';
 import { Canvas } from '@react-three/fiber';
-import { Environment, Lightformer, MeshTransmissionMaterial, OrbitControls, Sphere, Torus } from "@react-three/drei";
+import { MeshTransmissionMaterial, OrbitControls, Torus, Environment } from "@react-three/drei";
 
 const Hero = styled('div')(() => ({
   position: "relative",
   minHeight: "100vh",
   paddingTop: "150px",
-  paddingRight: "5%",
-  paddingLeft: "5%",
+  paddingRight: "40px",
+  paddingLeft: "40px",
   boxSizing: "border-box",
   fontFamily: "Inter, sans-serif",
 
@@ -19,12 +19,13 @@ const Hero = styled('div')(() => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "flex-start",
+    maxWidth: "1200px",
+    margin: "0 auto",
   },
 
   '& .about-intro-text': {
     position: "relative",
     zIndex: "1",
-    maxWidth: "1200px",
     flex: "1",
   },
 
@@ -52,7 +53,7 @@ const Hero = styled('div')(() => ({
   }
 }));
 
-const Container = styled('div')(() => ({
+const Content = styled('div')(() => ({
   position: "relative",
   zIndex: "1",
   maxWidth: "1200px",
@@ -116,6 +117,36 @@ const ServicesGrid = styled.div`
   }
 `;
 
+// Reusable 3d settings
+const Material = () => {
+  return (
+    <>
+      <meshPhysicalMaterial 
+        // toneMapped={false}
+        // samples={1}
+        // resolution={100}
+        // transmission={0.95}
+        // roughness={0.5}
+        // clearcoat={0.1}
+        // clearcoatRoughness={0.1}
+        // thickness={200}
+        // ior={1.5}
+        // chromaticAberration={1}
+        // anisotropy={1.7}
+        // distortion={0}
+        // distortionScale={0.2}
+        // temporalDistortion={0}
+        // attenuationDistance={0.5}
+        // attenuationColor="#pink"
+        // color="pink"
+      />
+      <Suspense fallback={null}>
+        <Environment preset="sunset" />
+      </Suspense>
+    </>
+  )
+}
+
 export const AboutPage = () => {
   const { width } = useViewport();
   const breakpoint = 680;
@@ -141,38 +172,17 @@ export const AboutPage = () => {
         <TextRotatorComponent />
       </Hero>
 
-      <Container>
+      <Content>
         <SectionTitleComponent text="what i do" />
 
         <ServicesGrid>
           <div className="service">
             <div className="service-icon">
               <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
-                <ambientLight />
-                <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
                 <Torus>
-                  <MeshTransmissionMaterial 
-                    toneMapped={false}
-                    samples={1}
-                    resolution={100}
-                    transmission={0.95}
-                    roughness={0.5}
-                    clearcoat={0.1}
-                    clearcoatRoughness={0.1}
-                    thickness={200}
-                    ior={1.5}
-                    chromaticAberration={1}
-                    anisotropy={1.7}
-                    distortion={0}
-                    distortionScale={0.2}
-                    temporalDistortion={0}
-                    attenuationDistance={0.5}
-                    attenuationColor="#pink"
-                    color="pink"
-                  />
+                  <Material></Material>
                 </Torus>
-                <OrbitControls />
-                
+                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
               </Canvas>
             </div>
             
@@ -180,10 +190,10 @@ export const AboutPage = () => {
               <h3 className="service-title">A/V Artist</h3>
 
               <div>
-                <ol role="list">
+                <ol>
                   <li>
                     <div className="line-list"></div>
-                    <div>Resolume Avenue</div>
+                    <div>Resolume</div>
                   </li>
                   <li>
                     <div className="line-list"></div>
@@ -208,25 +218,26 @@ export const AboutPage = () => {
           
           <div className="service">
             <div className="service-icon">
-            <i className="fa-regular fa-object-ungroup" style={{ fontSize: "40px" }}></i>
+              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
+                <Torus>
+                  <Material></Material>
+                </Torus>
+                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
+              </Canvas>
             </div>
             
             <div>
               <h3 className="service-title">3D creator</h3>
 
               <div>
-                <ol role="list">
+                <ol>
                   <li>
                     <div className="line-list"></div>
-                    <div>Webflow</div>
+                    <div>Belnder</div>
                   </li>
                   <li>
                     <div className="line-list"></div>
-                    <div>Figma</div>
-                  </li>
-                  <li>
-                    <div className="line-list"></div>
-                    <div>inVision</div>
+                    <div>C4D</div>
                   </li>
                 </ol>
               </div>
@@ -235,32 +246,29 @@ export const AboutPage = () => {
 
           <div className="service">
             <div className="service-icon">
-              <i class="fa-regular fa-object-ungroup" style={{ fontSize: "40px" }}></i>
+              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
+                <Torus>
+                  <Material></Material>
+                </Torus>
+                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
+              </Canvas>
             </div>
             
             <div>
-              <h3 className="service-title">Prototyping</h3>
+              <h3 className="service-title">XP designer</h3>
 
               <div>
-                <ol role="list">
+                <ol>
                   <li>
                     <div className="line-list"></div>
-                    <div>Webflow</div>
-                  </li>
-                  <li>
-                    <div className="line-list"></div>
-                    <div>Figma</div>
-                  </li>
-                  <li>
-                    <div className="line-list"></div>
-                    <div>inVision</div>
+                    <div>Unity</div>
                   </li>
                 </ol>
               </div>
             </div>
           </div>
         </ServicesGrid>
-      </Container>
+      </Content>
     </>
 
   )

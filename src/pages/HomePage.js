@@ -20,8 +20,8 @@ const Hero = styled('div')(() => ({
   display: "flex",
   minHeight: "100vh",
   paddingTop: "150px",
-  paddingRight: "5%",
-  paddingLeft: "5%",
+  paddingRight: "40px",
+  paddingLeft: "40px",
   justifyContent: "center",
   alignItems: "flex-start",
   boxSizing: "border-box",
@@ -31,8 +31,7 @@ const Hero = styled('div')(() => ({
     position: "relative",
     zIndex: "1",
     maxWidth: "1200px",
-    marginRight: "auto",
-    marginLeft: "auto",
+    margin: "0 auto",
     flex: "1",
   },
 
@@ -50,7 +49,7 @@ const ScrollDownWrapper = styled.div`
   position: absolute;
   left: 0px;
   right: 0px;
-  bottom: 25px;
+  bottom: 40px;
   z-index: 10;
   display: flex;
   overflow: hidden;

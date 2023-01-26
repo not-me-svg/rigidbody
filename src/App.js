@@ -5,7 +5,7 @@ import { Canvas } from '@react-three/fiber';
 import { Suspense } from 'react';
 import { Environment, OrbitControls } from '@react-three/drei';
 import { HeaderComponent } from "./components/HeaderComponent";
-import Balloon from './components/Balloon';
+import Balloon from './models/Balloon';
 import { ScrollTopComponent } from "./components/ScrollTopComponent";
 import { ContactComponent } from "./components/ContactComponent";
 
