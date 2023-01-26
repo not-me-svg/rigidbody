@@ -2,6 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { SectionTitleComponent } from '../components/SectionTitleComponent';
 import { TextRotatorComponent } from '../components/TextRotatorComponent';
+import useViewport from '../hooks/useViewport';
+import { Canvas } from '@react-three/fiber';
+import { Environment, Lightformer, MeshTransmissionMaterial, OrbitControls, Sphere, Torus } from "@react-three/drei";
 
 const Hero = styled('div')(() => ({
   position: "relative",
@@ -59,68 +62,80 @@ const Container = styled('div')(() => ({
   padding: "100px 5%"
 }));
 
-const ServicesGrid = styled('div')(() => ({
-  display: "grid",
-  marginRight: "auto",
-  marginLeft: "auto",
-  gridAutoColumns: "1fr",
-  gridColumnGap: "50px",
-  gridRowGap: "30px",
-  gridTemplateColumns: "1fr 1fr 1fr",
-  gridTemplateRows: "auto",
-  marginTop: "50px",
+const ServicesGrid = styled.div`
+  display: grid;
+  margin-right: auto;
+  margin-left: auto;
+  grid-auto-columns: 1fr;
+  grid-column-gap: 50px;
+  grid-row-gap: 30px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  margin-top: 50px;
 
-  '& .service': {
-    display: "flex",
-    justifyContent: "flex-start"
-  },
+  @media (max-width: 680px) {
+    grid-template-columns: 1fr;
+  }
 
-  '& .service-icon': {
-    marginRight: "30px"
-  },
+  & .service {
+    display: flex;
+    justify-content: flex-start;
+  }
 
-  '& .service-title': {
-    marginTop: "0px",
-    marginBottom: "20px",
-    fontSize: "20px",
-    lineHeight: "26px",
-    fontWeight: "500",
-    letterSpacing: "2px",
-    textTransform: "uppercase",
-  },
+  & .service-icon {
+    margin-right: 30px;
+    width: 48px;
+    height: 48px;
+  }
 
-  '& .service ol': {
-    paddingLeft: "none",
-    listStyle: "none"
-  },
+  & .service-title {
+    margin-top: 0px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 26px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
 
-  '& .service ol li': {
-    display: "flex",
-    alignItems: "center"
-  },
+  & .service ol {
+    padding-left: none;
+    list-style: none;
+  }
 
-  '& .service ol li .line-list': {
-    width: "30px",
-    height: "1px",
-    marginRight: "10px",
-    backgroundColor: "hsla(0, 0%, 100%, 0.4)",
-  },
-}));
+  & .service ol li {
+    display: flex;
+    align-items: center;
+  }
+
+  & .service ol li .line-list {
+    width: 30px;
+    height: 1px;
+    margin-right: 10px;
+    background-color: hsla(0, 0%, 100%, 0.4);
+  }
+`;
 
 export const AboutPage = () => {
+  const { width } = useViewport();
+  const breakpoint = 680;
+
   return (
     <>
       <Hero>
         <div className="about-intro">
           <div className="about-intro-text">
             <p>
-              My stage name is RigidBody but <br /> I´m not rigid at all.<br />I love flexibility and adaptation like I love sushi.<br />Before becoming an A/V artist I studied cinema and some years after, a master in linguistics. Then I became a programmer. 
+              My stage name is RigidBody but <br /> I love flexibility and adaptation like I love sushi.<br />Before becoming an A/V artist I studied cinema and some years after, a master in linguistics. Then I became a programmer. 
             </p>
           </div>
 
-          <div className="about-intro-avatar">
-            <img src="./assets/img/rigid-body-avatar.jpeg" alt="rigid body avatar" />
-          </div>
+          { 
+            width > breakpoint &&
+            <div className="about-intro-avatar">
+              <img src="./assets/img/rigid-body-avatar.jpeg" alt="rigid body avatar" />
+            </div>
+          }
         </div>
 
         <TextRotatorComponent />
@@ -132,7 +147,33 @@ export const AboutPage = () => {
         <ServicesGrid>
           <div className="service">
             <div className="service-icon">
-              <i class="fa-regular fa-circle-dot" style={{ fontSize: "40px" }}></i>
+              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
+                <ambientLight />
+                <directionalLight castShadow intensity={0.6} position={[0, 0, 10]} />
+                <Torus>
+                  <MeshTransmissionMaterial 
+                    toneMapped={false}
+                    samples={1}
+                    resolution={100}
+                    transmission={0.95}
+                    roughness={0.5}
+                    clearcoat={0.1}
+                    clearcoatRoughness={0.1}
+                    thickness={200}
+                    ior={1.5}
+                    chromaticAberration={1}
+                    anisotropy={1.7}
+                    distortion={0}
+                    distortionScale={0.2}
+                    temporalDistortion={0}
+                    attenuationDistance={0.5}
+                    attenuationColor="#pink"
+                    color="pink"
+                  />
+                </Torus>
+                <OrbitControls />
+                
+              </Canvas>
             </div>
             
             <div>

@@ -23,21 +23,26 @@ const SectionTitle = styled('div')(() => ({
   },
 }))
 
-const StartIcon = styled('div')(() => ({
-  width: "60px",
-  height: "2px",
-  marginRight: "45px",
-  marginLeft: "45px",
-  flex: "0 0 auto",
-  backgroundColor: "#c7c7c7",
-  transform: "skew(0deg, -50deg)",
+const StartIcon = styled.div`
+  width: 60px;
+  height: 2px;
+  margin-right: 45px;
+  margin-left: 45px;
+  flex: 0 0 auto;
+  background-color: #c7c7c7;
+  transform: skew(0deg, -50deg);
+  display: inline-block;
 
-  '&._2': {
-    width: "50px",
-    marginRight: "0px",
-    marginLeft: "0px",
+  &._2 {
+    width: 50px;
+    margin-right: 0px;
+    margin-left: 0px;
   }
-}))
+
+  @media (max-width: 680px) {
+    display: none;
+  }
+`;
 
 export const SectionTitleComponent = ({ text }) => {
   return (
