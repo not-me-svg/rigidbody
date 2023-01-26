@@ -1,23 +1,11 @@
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { useControls } from 'leva';
 import { useFrame, useThree } from '@react-three/fiber';
 
 export default function Balloon({ ...props }) {
   const ref = useRef();
   const { nodes } = useGLTF('/scene.gltf');
-  const materialProps = useControls({
-    thickness: { value: 5, min: 0, max: 20 },
-    roughness: { value: 0, min: 0, max: 1, step: 0.1 },
-    clearcoat: { value: 0, min: 0, max: 1, step: 0.1 },
-    clearcoatRoughness: { value: 0, min: 0, max: 1, step: 0.1 },
-    transmission: { value: 1, min: 0.9, max: 1, step: 0.01 },
-    ior: { value: 1.25, min: 1, max: 2.3, step: 0.05 },
-    envMapIntensity: { value: 25, min: 0, max: 100, step: 1 },
-    color: '#2b0297',
-    attenuationTint: '#2b0297',
-    attenuationDistance: { value: 1, min: 0, max: 1 }
-  });
+
 
   // Mouse behaviour
   const { viewport } = useThree()
@@ -35,7 +23,18 @@ export default function Balloon({ ...props }) {
         <group rotation={[Math.PI / 2, 0, 0]}>
           <group position={[0,0,0]} rotation={[-Math.PI / 2, 0.3, 10]} scale={[0.1, 0.1, 0.1]}>
             <mesh geometry={nodes.Object_4.geometry}> {/* material={materials.Metallic} */}
-              <meshPhysicalMaterial {...materialProps} />
+              <meshPhysicalMaterial 
+                thickness={ [5, 0, 20 ]}
+                roughness={ [0, 0, 1, 0.1 ]}
+                clearcoat={ [0, 0, 1, 0.1 ]}
+                clearcoatRoughness={ [0, 0, 1, 0.1] }
+                transmission={ [1, 0.9, 1, 0.01] }
+                ior={ [1.25, 1, 2.3, 0.05 ]}
+                envMapIntensity={ [25, 0, 100, 1] }
+                color='#2b0297'
+                attenuationTint='#2b0297'
+                attenuationDistance={ [1, 0, 1] }
+              />
             </mesh>
           </group>
         </group>
