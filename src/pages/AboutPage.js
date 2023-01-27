@@ -1,10 +1,10 @@
-import React, { Suspense } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { SectionTitleComponent } from '../components/SectionTitleComponent';
 import { TextRotatorComponent } from '../components/TextRotatorComponent';
 import useViewport from '../hooks/useViewport';
-import { Canvas } from '@react-three/fiber';
-import { MeshTransmissionMaterial, OrbitControls, Torus, Environment } from "@react-three/drei";
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls } from "@react-three/drei";
 
 const Hero = styled('div')(() => ({
   position: "relative",
@@ -81,6 +81,10 @@ const ServicesGrid = styled.div`
   & .service {
     display: flex;
     justify-content: flex-start;
+
+    @media (max-width: 680px) {
+      margin: 0 auto;
+    }
   }
 
   & .service-icon {
@@ -117,33 +121,23 @@ const ServicesGrid = styled.div`
   }
 `;
 
-// Reusable 3d settings
-const Material = () => {
+// Reusable SpinningShape
+function SpinningShape(props) {
+  // Reference to the THREE.Mesh object
+  const ref = useRef();
+
+  // Subscribe this component to the render-loop, rotate the mesh every frame
+  useFrame((state, delta) => (ref.current.rotation.x += delta));
+
+  // Return the view
   return (
-    <>
-      <meshPhysicalMaterial 
-        // toneMapped={false}
-        // samples={1}
-        // resolution={100}
-        // transmission={0.95}
-        // roughness={0.5}
-        // clearcoat={0.1}
-        // clearcoatRoughness={0.1}
-        // thickness={200}
-        // ior={1.5}
-        // chromaticAberration={1}
-        // anisotropy={1.7}
-        // distortion={0}
-        // distortionScale={0.2}
-        // temporalDistortion={0}
-        // attenuationDistance={0.5}
-        // attenuationColor="#pink"
-        // color="pink"
-      />
-      <Suspense fallback={null}>
-        <Environment preset="sunset" />
-      </Suspense>
-    </>
+    <mesh
+      { ...props }
+      ref={ ref }
+      scale={ 2 }>
+      <torusKnotGeometry args={[0.5, 0.4, 100, 64]} />
+      <meshStandardMaterial color={ '#c7c7c7' } />
+    </mesh>
   )
 }
 
@@ -178,11 +172,12 @@ export const AboutPage = () => {
         <ServicesGrid>
           <div className="service">
             <div className="service-icon">
-              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
-                <Torus>
-                  <Material></Material>
-                </Torus>
-                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
+              <Canvas>
+                <ambientLight intensity={ 0.5 } />
+                <spotLight position={ [10, 10, 10] } angle={ 0.15 } penumbra={ 1 } />
+                <pointLight position={ [-10, -10, -10] } />
+                <SpinningShape position={ [0, 0, 0] } />
+                <OrbitControls />
               </Canvas>
             </div>
             
@@ -218,11 +213,12 @@ export const AboutPage = () => {
           
           <div className="service">
             <div className="service-icon">
-              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
-                <Torus>
-                  <Material></Material>
-                </Torus>
-                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
+              <Canvas>
+                <ambientLight intensity={ 0.5 } />
+                <spotLight position={ [10, 10, 10] } angle={ 0.15 } penumbra={ 1 } />
+                <pointLight position={ [-10, -10, -10] } />
+                <SpinningShape position={ [0, 0, 0] } />
+                <OrbitControls />
               </Canvas>
             </div>
             
@@ -246,11 +242,12 @@ export const AboutPage = () => {
 
           <div className="service">
             <div className="service-icon">
-              <Canvas dpr={[1, 2]} camera={{ position: [0, 0, 2.4] }} gl={{ alpha: true }}>
-                <Torus>
-                  <Material></Material>
-                </Torus>
-                <OrbitControls autoRotate="true" autoRotateSpeed="20" />
+              <Canvas>
+                <ambientLight intensity={ 0.5 } />
+                <spotLight position={ [10, 10, 10] } angle={ 0.15 } penumbra={ 1 } />
+                <pointLight position={ [-10, -10, -10] } />
+                <SpinningShape position={ [0, 0, 0] } />
+                <OrbitControls />
               </Canvas>
             </div>
             
